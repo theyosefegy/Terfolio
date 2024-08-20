@@ -1,0 +1,101 @@
+:root {
+	--command: #8c6b59;
+	--preloadedText: #997c51;
+	--bg: #211d1b;
+	--err: #9c7162;
+	--prompt: #519975;
+}
+
+::-webkit-scrollbar {
+	background-color: var(--bg);
+	width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--prompt);
+}
+
+p {
+	margin: 0;
+}
+
+body {
+	margin: 0px;
+	padding: 0;
+	background-color: var(--bg);
+	font-family: "Courier New", Courier, monospace;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+}
+
+#terminal {
+	width: 95%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	font-weight: bold;
+	padding-bottom: 10px; /* Prevent the last line from being cut off */
+	color: var(--preloadedText);
+}
+
+#texter {
+	position: absolute;
+	left: -1000px;
+	opacity: 0;
+}
+
+.prompt-line {
+	display: flex;
+	width: 95%;
+	color: var(--command);
+	background-color: #365b538b;
+	cursor: text;
+}
+
+#typer {
+	display: inline-block;
+	white-space: pre; /* This preserves both spaces and line breaks */
+}
+
+.prompt-line #typer::before,
+p.preloadedMsg::before {
+	content: "visitor@theyosefegy.com:~$ ";
+	color: var(--prompt);
+}
+
+p.preloadedMsg {
+	color: var(--command);
+}
+
+p.error {
+	color: var(--err);
+	font-weight: bold;
+}
+
+#history p {
+	margin: 5px 0;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 50%;
+	}
+}
+
+.cursor {
+	font-size: 12px;
+	color: transparent;
+	background-color: var(--command);
+	position: relative;
+	opacity: 1;
+	top: -3px;
+	height: 1.5em;
+	width: 10px;
+	max-width: 10px;
+	transform: translateY(4px);
+	overflow: hidden;
+	text-indent: -5px;
+	display: inline-block;
+	animation: blink 1s infinite;
+}
