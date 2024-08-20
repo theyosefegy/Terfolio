@@ -19,6 +19,15 @@ export function aliasMethod(args) {
 
 	const [command, alias] = args;
 
+	for (let [key, value] of commandMap) {
+		if (value.aliases.includes(alias)) {
+			displayErrorMessage(
+				`The alias "${alias}" is already assigned to the command "${key}".`
+			);
+			return;
+		}
+	}
+
 	if (commandMap.has(command)) {
 		commandMap.get(command).aliases.push(alias);
 		displayOutputMessage(
