@@ -1,3 +1,4 @@
+import { displayOutputMessage } from "../commands/cmds.js";
 import { typetext } from "../typetext.js";
 
 export class Embed {
@@ -125,7 +126,8 @@ export class Embed {
 		});
 	}
 
-	renderIn(targetElement) {
+	renderIn(targetElement, msg = "") {
 		targetElement.appendChild(this.embedContainer);
+		if (msg) displayOutputMessage(msg, false);
 	}
 }

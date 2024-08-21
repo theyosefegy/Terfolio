@@ -1,4 +1,4 @@
-import { Embed } from "../components/embed.js";
+import { Embed } from "../components/embedMsg.js";
 import { commandHistoryElement } from "../script.js";
 import { returnJsonObject } from "./cmds.js";
 
