@@ -1,0 +1,89 @@
+div.embed {
+	max-width: 700px;
+	padding: 10px 20px 10px 10px;
+	margin: 10px 0;
+	border-radius: 0 4px 4px 0;
+	border-width: 0 0 0 10px;
+	font-family: "Courier New", Courier, monospace;
+	color: #fff;
+	background-color: #2a2523;
+	transition: 0.3s;
+
+	/* GRID LAYOUT */
+	display: grid;
+	grid-template-columns: 1fr 2fr; /* Image takes 1/3, description takes 2/3 */
+	grid-template-areas:
+		"title title"
+		"image description"
+		"image	 fields"
+		"footer link";
+
+	grid-column: 3;
+	grid-row: 3;
+	gap: 10px;
+}
+
+.embed .fields {
+	display: flex;
+	flex-direction: column;
+	grid-area: fields;
+	align-items: center;
+}
+
+div.field {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+	background-color: #1e1b1a;
+	border-radius: 4px;
+	width: 70%;
+}
+
+span.field-title {
+	font-weight: bold;
+	color: var(--prompt);
+}
+
+span.field-value {
+	color: var(--command);
+}
+
+div.embed .embedImage {
+	grid-area: image;
+	width: 220px;
+}
+
+div.embed .embedDescription {
+	grid-area: description;
+	margin-left: 20px;
+}
+
+div.embed .embedLink {
+	grid-area: link;
+	color: inherit;
+	text-decoration: none;
+	font-weight: bold;
+	text-transform: uppercase;
+	justify-self: end;
+	align-self: end;
+	transition: 0.3s;
+}
+
+div.embed:hover {
+	background-color: #3b3735;
+}
+
+div.embed .embedTitle {
+	grid-area: title;
+	text-transform: uppercase;
+	margin-bottom: 5px;
+}
+
+div.embed .embedFooter {
+	grid-area: footer;
+	font-size: 12px;
+	margin-top: 10px;
+	text-transform: uppercase;
+	align-self: end;
+}

@@ -1,10 +1,16 @@
-export { commandMap, displayErrorMessage, displayOutputMessage };
+export {
+	commandMap,
+	displayErrorMessage,
+	displayOutputMessage,
+	returnJsonObject,
+};
 
-import { commandHistoryElement } from "../script.js";
-import { typetext } from "../animate/typetext.js";
+import { commandHistoryElement, inputLine } from "../script.js";
+import { typetext } from "../typetext.js";
 
 import { helpMethod, exitMethod, clearMethod, echoMethod } from "./basics.js";
 import { aliasMethod } from "./alias.js";
+import { githubMethod } from "./github.js";
 
 function createCommandConfig(name, description, method, aliases = []) {
 	return { name, description, aliases, method };
@@ -27,6 +33,10 @@ const commandMap = new Map([
 			"Create a shortcut for a command.",
 			aliasMethod
 		),
+	],
+	[
+		"github",
+		createCommandConfig("github", "Shows my github page.", githubMethod),
 	],
 	[
 		"clear",
@@ -54,4 +64,9 @@ function displayOutputMessage(cmd, isPreloaded = false) {
 	typer.textContent = "";
 
 	commandHistoryElement.append(output); // Insert before the input line
+}
+
+async function returnJsonObject(url) {
+	const response = await fetch(url, { method: "GET" });
+	return await response.json();
 }

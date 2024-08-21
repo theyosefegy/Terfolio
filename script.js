@@ -14,6 +14,7 @@ function handleCommand(commandString) {
 	cmds.displayOutputMessage(commandString, true);
 
 	if (!commandString) return;
+	myterminal.scrollTop = myterminal.scrollHeight;
 
 	const [command, ...args] = commandString.toLowerCase().split(" ");
 
@@ -45,10 +46,11 @@ texter.addEventListener("keydown", (event) => {
 		event.preventDefault(); // Prevent default Enter key behavior
 		handleCommand(texter.value.trim());
 
+		myterminal.scrollTop = myterminal.scrollHeight;
 		texter.value = ""; // Clear the textarea
 		typer.textContent = ""; // Clear the visible command line
 	}
 });
 
-document.addEventListener("click", () => texter.focus);
+document.addEventListener("click", () => texter.focus());
 document.addEventListener("DOMContentLoaded", () => texter.focus());
