@@ -19,7 +19,11 @@ async function githubMethod(args) {
 		imageURL: data.avatar_url,
 	});
 
-	githubEmbed.createField("key ", "value");
+	githubEmbed.createField("Username", data.login, false);
+	githubEmbed.createField("Created At", data.created_at, false);
+	githubEmbed.createField("Public Repos", data.public_repos, true);
+	githubEmbed.createField("Followers", data.followers, false);
+	githubEmbed.createField("Following", data.following, false);
 
 	githubEmbed.renderIn(commandHistoryElement);
 }

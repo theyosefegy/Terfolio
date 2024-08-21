@@ -88,9 +88,9 @@ export class Embed {
 		}
 	}
 
-	createField(key, value) {
-		this.fields.push({ title: key, value: value });
-		this.updateFields(); // Update fields when a new field is added
+	createField(key, value, isInline) {
+		this.fields.push({ title: key, value: value, inline: isInline });
+		this.updateFields();
 	}
 
 	updateFields() {
@@ -104,11 +104,18 @@ export class Embed {
 			const fieldElement = document.createElement("div");
 			fieldElement.classList.add("field");
 
-			const fieldTitle = document.createElement("span");
+			// Add class based on whether the field is inline or not
+			if (field.inline) {
+				fieldElement.classList.add("inline");
+			} else {
+				fieldElement.classList.add("block");
+			}
+
+			const fieldTitle = document.createElement("div");
 			fieldTitle.classList.add("field-title");
 			fieldTitle.textContent = field.title;
 
-			const fieldValue = document.createElement("span");
+			const fieldValue = document.createElement("div");
 			fieldValue.classList.add("field-value");
 			fieldValue.textContent = field.value;
 

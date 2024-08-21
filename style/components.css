@@ -11,42 +11,49 @@ div.embed {
 
 	/* GRID LAYOUT */
 	display: grid;
-	grid-template-columns: 1fr 2fr; /* Image takes 1/3, description takes 2/3 */
+	grid-template-columns: 1fr 2fr; /* Image takes 1/3, description and fields take 2/3 */
 	grid-template-areas:
 		"title title"
 		"image description"
-		"image	 fields"
+		"image fields"
 		"footer link";
-
-	grid-column: 3;
-	grid-row: 3;
-	gap: 10px;
+	gap: 15px; /* Increase the gap between grid items for better spacing */
+	align-items: start; /* Align items at the start of the grid cells */
 }
 
-.embed .fields {
-	display: flex;
-	flex-direction: column;
+div.embed .fields {
+	display: grid;
+	gap: 20px;
 	grid-area: fields;
-	align-items: center;
+	grid-template-columns: 1fr 1fr 1fr;
+	width: 100%; /* Ensure fields take full width */
 }
 
-div.field {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+.field {
 	padding: 5px;
-	background-color: #1e1b1a;
 	border-radius: 4px;
-	width: 70%;
+	column-fill: 2;
+	margin: 3px;
+	transition: 0.3s;
+
+	width: 100%; /* Adjust the width to fit within the container */
 }
 
-span.field-title {
+.field-title {
 	font-weight: bold;
-	color: var(--prompt);
+	color: #6d977e;
+	text-transform: uppercase;
+	width: fit-content;
 }
 
-span.field-value {
-	color: var(--command);
+.field-value {
+	margin-bottom: 10px;
+	font-weight: 300;
+	color: #ddd6cf;
+}
+
+.field:hover {
+	background-color: #584b3d87;
 }
 
 div.embed .embedImage {
@@ -56,7 +63,8 @@ div.embed .embedImage {
 
 div.embed .embedDescription {
 	grid-area: description;
-	margin-left: 20px;
+	margin-left: 10px;
+	color: #ddd6cf;
 }
 
 div.embed .embedLink {
@@ -69,10 +77,10 @@ div.embed .embedLink {
 	align-self: end;
 	transition: 0.3s;
 }
-
+/* 
 div.embed:hover {
 	background-color: #3b3735;
-}
+} */
 
 div.embed .embedTitle {
 	grid-area: title;

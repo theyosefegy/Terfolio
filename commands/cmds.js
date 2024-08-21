@@ -36,7 +36,11 @@ const commandMap = new Map([
 	],
 	[
 		"github",
-		createCommandConfig("github", "Shows my github page.", githubMethod),
+		createCommandConfig(
+			"github",
+			"Shows my github page statistics.",
+			githubMethod
+		),
 	],
 	[
 		"clear",
