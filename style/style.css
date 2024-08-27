@@ -36,16 +36,22 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
 	height: 100vh;
+	overflow: hidden; /* Prevents unwanted scroll on smaller screens */
 }
 
 #terminal {
 	width: 95%;
+	max-width: 1200px; /* Maximum width to ensure it doesn't get too wide on large screens */
+	margin: 2px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	font-weight: bold;
 	padding-bottom: 10px; /* Prevent the last line from being cut off */
 	color: var(--preloadedText);
+	flex: 1; /* Allows terminal to expand and take up available space */
+	box-sizing: border-box; /* Includes padding and borders in the element's width and height */
 }
 
 #texter {
@@ -56,10 +62,13 @@ body {
 
 .prompt-line {
 	display: flex;
-	width: 95%;
 	color: var(--command);
 	background-color: #365b538b;
 	cursor: text;
+	flex-wrap: wrap; /* Allow wrapping on smaller screens */
+	padding: 5px;
+	box-sizing: border-box;
+	width: 100%; /* Make sure it uses the full width */
 }
 
 #typer {
@@ -75,6 +84,8 @@ p.preloadedMsg::before {
 
 p.preloadedMsg {
 	color: var(--command);
+	/* padding: 5px; */
+	background-color: #29433e8b;
 }
 
 p.error {
@@ -103,4 +114,75 @@ p.error {
 	text-indent: -5px;
 	display: inline-block;
 	animation: blink 1s infinite;
+}
+
+/* Responsive Media */
+@media (max-width: 1024px) {
+	#terminal {
+		font-size: 16px;
+		width: 100%;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+@media (max-width: 768px) {
+	#terminal {
+		font-size: 14px;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+
+@media (max-width: 480px) {
+	#terminal {
+		/* font-size: 12px; */
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+	.cursor {
+		width: 8px;
+		height: 1.2em;
+	}
+}
+
+/* Responsive Media */
+@media (max-width: 1024px) {
+	#terminal {
+		/* font-size: 16px; */
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+@media (max-width: 768px) {
+	body {
+		flex-direction: column;
+		align-items: stretch; /* Allow full-width sections */
+	}
+	#terminal {
+		/* font-size: 14px; */
+		width: 100%;
+		padding: 10px;
+	}
+	.prompt-line {
+		padding: 8px;
+	}
+}
+
+@media (max-width: 480px) {
+	body {
+		padding: 10px;
+	}
+	#terminal {
+		/* font-size: 12px; */
+		padding: 8px;
+	}
+	.prompt-line {
+		padding: 5px;
+	}
+	.cursor {
+		width: 8px;
+		height: 1.2em;
+	}
 }

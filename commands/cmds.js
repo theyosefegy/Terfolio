@@ -11,6 +11,7 @@ import { typetext } from "../typetext.js";
 import { helpMethod, exitMethod, clearMethod, echoMethod } from "./basics.js";
 import { aliasMethod } from "./alias.js";
 import { githubMethod } from "./github.js";
+import { Embed } from "../components/embed.js";
 
 function createCommandConfig(name, description, method, aliases = []) {
 	return { name, description, aliases, method };
@@ -71,6 +72,15 @@ function displayOutputMessage(cmd, isPreloaded = false) {
 }
 
 async function returnJsonObject(url) {
-	const response = await fetch(url, { method: "GET" });
-	return await response.json();
+	try {
+		const response = await fetch(url, { method: "GET" });
+		return await response.json();
+	} catch {
+		const embedError = new Embed({
+			color: "red",
+			description: "Error: Something wring occured.",
+		});
+
+		embedError.renderIn(commandHistoryElement);
+	}
 }

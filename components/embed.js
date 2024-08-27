@@ -6,7 +6,7 @@ export class Embed {
 		title,
 		description,
 		link,
-		imageURL = "../default-img.jpg",
+		imageURL,
 		color = "#997c51",
 		footer,
 		fields = [],
@@ -26,6 +26,7 @@ export class Embed {
 
 		this.fieldsContainer = document.createElement("div");
 		this.fieldsContainer.classList.add("fields");
+
 		this.embedContainer.appendChild(this.fieldsContainer);
 
 		this.createEmbed();
@@ -38,7 +39,9 @@ export class Embed {
 			embedTitle.classList.add("embedTitle");
 			embedTitle.textContent = this.title;
 
-			embedTitle.style.marginBottom = "5px";
+			if (this.imageURL || this.description)
+				embedTitle.style.marginBottom = "5px";
+
 			embedTitle.style.letterSpacing = "-0.8px";
 
 			this.embedContainer.appendChild(embedTitle);
@@ -49,17 +52,24 @@ export class Embed {
 
 			embedDescription.classList.add("embedDescription");
 
+			if (this.imageURL || this.description) {
+				embedDescription.style.marginBottom = "10px";
+				embedDescription.style.marginTop = "10px";
+			}
+
+			if (!this.imageURL) embedDescription.style.gridColumn = "1/-1";
+
 			typetext(this.description, embedDescription, 50);
-			embedDescription.style.marginBottom = "10px";
 			this.embedContainer.appendChild(embedDescription);
 		}
 
 		if (this.imageURL) {
 			const embedImage = document.createElement("img");
 			embedImage.src = this.imageURL;
-			embedImage.style.width = "100%";
 
 			embedImage.classList.add("embedImage");
+			embedImage.style.width = "300px";
+			embedImage.style.padding = "10px";
 
 			this.embedContainer.appendChild(embedImage);
 		}
@@ -89,8 +99,8 @@ export class Embed {
 		}
 	}
 
-	createField(key, value, isInline) {
-		this.fields.push({ title: key, value: value, inline: isInline });
+	createField(key, value) {
+		this.fields.push({ title: key, value: value });
 		this.updateFields();
 	}
 
@@ -104,13 +114,6 @@ export class Embed {
 		this.fields.forEach((field) => {
 			const fieldElement = document.createElement("div");
 			fieldElement.classList.add("field");
-
-			// Add class based on whether the field is inline or not
-			if (field.inline) {
-				fieldElement.classList.add("inline");
-			} else {
-				fieldElement.classList.add("block");
-			}
 
 			const fieldTitle = document.createElement("div");
 			fieldTitle.classList.add("field-title");
@@ -126,8 +129,7 @@ export class Embed {
 		});
 	}
 
-	renderIn(targetElement, msg = "") {
+	renderIn(targetElement) {
 		targetElement.appendChild(this.embedContainer);
-		if (msg) displayOutputMessage(msg, false);
 	}
 }
