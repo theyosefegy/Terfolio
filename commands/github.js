@@ -1,6 +1,6 @@
 import { Embed } from "../components/embed.js";
-import { commandHistoryElement } from "../script.js";
-import { returnJsonObject } from "./cmds.js";
+import { myterminal } from "../script.js";
+import { returnJsonObject } from "../utility.js";
 
 export { githubMethod };
 
@@ -8,6 +8,7 @@ async function githubMethod(args) {
 	const user = "theyosefegy";
 
 	const data = await returnJsonObject(`https://api.github.com/users/${user}`);
+	console.log(data);
 
 	const now = new Date();
 
@@ -15,13 +16,8 @@ async function githubMethod(args) {
 		title: "GitHub Profile | " + data.name,
 		description: data.bio || "This Profile Has No Bio.",
 		link: `https://github.com/${user}`,
-		footer: now.toUTCString().slice(4),
+		footer: now.toLocaleString(),
 		imageURL: data.avatar_url,
-	});
-
-	const errorEmbed = new Embed({
-		title: "Error: Something wrong occured",
-		color: "red",
 	});
 
 	githubEmbed.createField("Username", data.login, false);
@@ -30,5 +26,5 @@ async function githubMethod(args) {
 	githubEmbed.createField("Followers", data.followers, false);
 	githubEmbed.createField("Following", data.following, false);
 
-	githubEmbed.renderIn(commandHistoryElement);
+	githubEmbed.renderIn(myterminal);
 }

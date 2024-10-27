@@ -1,26 +1,33 @@
-import { commandHistoryElement } from "../script.js";
+import { loopLines } from "../animation.js";
+import { myterminal } from "../script.js";
 
-import {
-	commandMap,
-	displayErrorMessage,
-	displayOutputMessage,
-} from "./cmds.js";
+import { commandMap } from "./cmds.js";
+import { displayErrorMessage, displayOutputMessage } from "../utility.js";
 
 export { helpMethod, exitMethod, clearMethod, echoMethod };
 
 function helpMethod(args) {
+	let lines = [];
+	lines.push("<br/>");
 	if (!args.length) {
 		commandMap.forEach((value, key) => {
-			displayOutputMessage(`${key}: ${value.description}`);
+			key = `<span class="command-help">${key}</span>`;
+
+			lines.push(`${key} ${value.description}`);
 		});
 	} else {
+		// Get the description of a specific command.
 		const command = commandMap.get(args[0]);
 		if (command) {
-			displayOutputMessage(`${command.name}: ${command.description}`);
+			lines.push(
+				`<span class="command-help">${command.name}</span> ${command.description}`
+			);
 		} else {
-			displayOutputMessage(`The command "${args[0]}" is not recognized.`);
+			lines.push(`The command "${args[0]}" is not recognized.`);
 		}
 	}
+	lines.push("<br/>");
+	loopLines(lines, 50);
 }
 
 function exitMethod(args) {
@@ -28,15 +35,15 @@ function exitMethod(args) {
 }
 
 function clearMethod(args) {
-	commandHistoryElement.textContent = "";
-	displayOutputMessage("Terminal screen cleared.");
+	myterminal.textContent = "";
 }
 
 function echoMethod(args) {
-	if (!args) {
-		displayErrorMessage("Please provide a message to echo.");
+	const message = args.join(" ");
+
+	if (!message) {
+		displayErrorMessage("Please provide a message to print.");
 	}
 
-	const message = args.join(" ");
 	displayOutputMessage(message);
 }

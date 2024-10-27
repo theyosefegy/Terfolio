@@ -1,56 +1,78 @@
-import * as cmds from "./commands/cmds.js";
-export { myterminal, inputLine, preloadedCMDS, commandHistoryElement };
+import { updateTyper } from "./animation.js";
+import { displayErrorMessage, displayOutputMessage } from "./utility.js";
+
+import { commandMap } from "./commands/cmds.js";
+import { bannerMethod } from "./commands/banner.js";
+import { findCommandAlias } from "./commands/alias.js";
+export { myterminal, commandLine, preloadedCMDS, typer, texter };
 
 const myterminal = document.getElementById("terminal");
-const inputLine = document.querySelector(".prompt-line");
-
-const commandHistoryElement = document.getElementById("history");
+const commandLine = document.querySelector(".command");
 const preloadedCMDS = document.getElementById("preloaded");
-
 const texter = document.getElementById("texter");
 const typer = document.getElementById("typer");
 
 function handleCommand(commandString) {
-	cmds.displayOutputMessage(commandString, true);
+	if (!commandString.trim()) return;
 
-	if (!commandString) return;
+	displayOutputMessage(commandString, true);
+
+	// Scroll terminal to the latest message
 	myterminal.scrollTop = myterminal.scrollHeight;
 
-	const [command, ...args] = commandString.toLowerCase().split(" ");
+	// Split commandString into command and args
+	const [command, ...args] = commandString.toLowerCase().trim().split(" ");
 
-	const commandHandler =
-		cmds.commandMap.get(command) || findCommandAlias(command);
+	// Check if the command exists in commandMap or if it's an alias
+	let commandHandler = commandMap.get(command) || findCommandAlias(command);
 
+	// Execute the command if found, otherwise show error message
 	if (commandHandler) {
-		commandHandler.method(args);
+		try {
+			commandHandler.method(args);
+		} catch (error) {
+			console.error(
+				`An error occurred while executing the command "${command}": ${error.message}`
+			);
+		}
 	} else {
-		cmds.displayErrorMessage(
+		displayErrorMessage(
 			`The command "${command}" is not recognized. Type "help" for a list of available commands.`
 		);
 	}
 }
 
-function findCommandAlias(cmd) {
-	for (let [_, value] of cmds.commandMap) {
-		if (value.aliases.includes(cmd)) {
-			return value;
-		}
-	}
-	return null;
-}
-
-texter.addEventListener("input", () => (typer.textContent = texter.value));
+texter.addEventListener("input", () => {
+	typer.textContent = texter.value;
+	updateTyper(texter.value);
+});
 
 texter.addEventListener("keydown", (event) => {
 	if (event.key === "Enter") {
 		event.preventDefault(); // Prevent default Enter key behavior
+
+		window.scrollTo({
+			top: document.body.scrollHeight,
+			behavior: "smooth", // Optional for smooth scrolling
+		});
+
 		handleCommand(texter.value.trim());
 
-		myterminal.scrollTop = myterminal.scrollHeight;
 		texter.value = ""; // Clear the textarea
 		typer.textContent = ""; // Clear the visible command line
 	}
 });
 
-document.addEventListener("click", () => texter.focus());
-document.addEventListener("DOMContentLoaded", () => texter.focus());
+window.addEventListener("click", () => {
+	texter.focus();
+	window.scrollTo({
+		top: document.body.scrollHeight,
+		behavior: "smooth", // Optional for smooth scrolling
+	});
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+	bannerMethod();
+	texter.focus();
+	updateTyper(texter.value);
+});

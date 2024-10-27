@@ -1,9 +1,11 @@
 :root {
 	--command: #8c6b59;
-	--preloadedText: #997c51;
+	--preloded-text: #b89076;
 	--bg: #211d1b;
-	--err: #9c7162;
+	--err: #9c8394;
+	--cursor: #73abad;
 	--prompt: #519975;
+	--terminalFont: monospace;
 }
 
 ::-webkit-scrollbar {
@@ -13,6 +15,11 @@
 
 ::-webkit-scrollbar-thumb {
 	background-color: var(--prompt);
+}
+
+::selection {
+	color: #211830;
+	background-color: #519975;
 }
 
 h1,
@@ -28,29 +35,33 @@ p {
 	margin: 0;
 }
 
-body {
-	margin: 0px;
+pre {
 	padding: 0;
-	background-color: var(--bg);
-	font-family: "Courier New", Courier, monospace;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-	height: 100vh;
-	overflow: hidden; /* Prevents unwanted scroll on smaller screens */
+	margin: 0;
+	color: var(--prompt);
 }
 
+body {
+	color: var(--preloded-text);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	margin: 0px;
+	padding: 15px 20px;
+	background-color: var(--bg);
+	font-family: var(--terminalFont);
+	font-weight: 100;
+	font-size: 16px;
+	align-content: space-around;
+}
+
+/* TERMINAL */
+
 #terminal {
-	width: 95%;
 	max-width: 1200px; /* Maximum width to ensure it doesn't get too wide on large screens */
-	margin: 2px;
-	overflow-y: scroll;
+	width: 95%;
 	overflow-x: hidden;
-	font-weight: bold;
-	padding-bottom: 10px; /* Prevent the last line from being cut off */
-	color: var(--preloadedText);
-	flex: 1; /* Allows terminal to expand and take up available space */
+	overflow-y: scroll;
 	box-sizing: border-box; /* Includes padding and borders in the element's width and height */
 }
 
@@ -60,37 +71,48 @@ body {
 	opacity: 0;
 }
 
-.prompt-line {
+/* User Input */
+
+.command {
 	display: flex;
 	color: var(--command);
-	background-color: #365b538b;
 	cursor: text;
 	flex-wrap: wrap; /* Allow wrapping on smaller screens */
-	padding: 5px;
 	box-sizing: border-box;
 	width: 100%; /* Make sure it uses the full width */
 }
 
-#typer {
-	display: inline-block;
-	white-space: pre; /* This preserves both spaces and line breaks */
+/* The command name inside the help menu */
+span.command-help {
+	color: var(--cursor);
+	text-transform: capitalize;
+	margin: 3px 10px;
+	text-shadow: 0 0 5px #73abad;
 }
 
-.prompt-line #typer::before,
-p.preloadedMsg::before {
+#typer {
+	display: inline-block;
+	white-space: pre; /* Preserves both spaces and line breaks */
+	color: #73abad;
+	margin-bottom: 30px;
+}
+
+.preloaded-msg {
+	color: var(--preloded-text);
+}
+
+#terminal p.preloaded-msg {
+	color: var(--prompt);
+}
+
+.command #typer::before,
+p.preloaded-msg::before {
 	content: "visitor@theyosefegy.com:~$ ";
 	color: var(--prompt);
 }
 
-p.preloadedMsg {
-	color: var(--command);
-	/* padding: 5px; */
-	background-color: #29433e8b;
-}
-
 p.error {
 	color: var(--err);
-	font-weight: bold;
 }
 
 @keyframes blink {
@@ -99,10 +121,72 @@ p.error {
 	}
 }
 
+.suggestion {
+	display: inline-block;
+	color: #85c4c680;
+	white-space: pre-line; /* Preserves both spaces and line breaks */
+}
+
+/* Projects Command */
+.repo-container {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	margin: 0;
+	max-width: 50%;
+	padding: 10px 0;
+	background-color: #0f0d0b;
+	margin: 10px 0;
+}
+
+.repo-container i {
+	color: var(--prompt);
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.repo-name {
+	text-decoration: none;
+	margin: 0;
+	color: var(--command);
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.repo-name:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.repo-container::before,
+.repo-container::after {
+	position: absolute;
+	font-weight: 100;
+	font-size: 43px;
+	top: -0.22em;
+	color: var(--prompt);
+}
+
+.repo-container::before {
+	content: "[";
+	left: -0.18em;
+}
+.repo-container::after {
+	content: "]";
+	right: -0.2em;
+}
+
+.copyright {
+	color: rgb(180, 180, 129);
+}
+
+/* Cursor */
+
 .cursor {
+	display: inline-block;
+	background-color: var(--cursor);
 	font-size: 12px;
 	color: transparent;
-	background-color: var(--command);
 	position: relative;
 	opacity: 1;
 	top: -3px;
@@ -112,12 +196,12 @@ p.error {
 	transform: translateY(4px);
 	overflow: hidden;
 	text-indent: -5px;
-	display: inline-block;
 	animation: blink 1s infinite;
 }
 
 /* Responsive Media */
 @media (max-width: 1024px) {
+	.command,
 	#terminal {
 		font-size: 16px;
 		width: 100%;
@@ -127,16 +211,24 @@ p.error {
 }
 
 @media (max-width: 768px) {
+	.command,
 	#terminal {
 		font-size: 14px;
 		padding-left: 5px;
 		padding-right: 5px;
 	}
+
+	.repo-name,
+	.repo-description,
+	.repo-footer {
+		font-size: 13px;
+	}
 }
 
 @media (max-width: 480px) {
+	.command,
 	#terminal {
-		/* font-size: 12px; */
+		font-size: 12px;
 		padding-left: 2px;
 		padding-right: 2px;
 	}
@@ -144,45 +236,10 @@ p.error {
 		width: 8px;
 		height: 1.2em;
 	}
-}
 
-/* Responsive Media */
-@media (max-width: 1024px) {
-	#terminal {
-		/* font-size: 16px; */
-		padding-left: 10px;
-		padding-right: 10px;
-	}
-}
-
-@media (max-width: 768px) {
-	body {
-		flex-direction: column;
-		align-items: stretch; /* Allow full-width sections */
-	}
-	#terminal {
-		/* font-size: 14px; */
-		width: 100%;
-		padding: 10px;
-	}
-	.prompt-line {
-		padding: 8px;
-	}
-}
-
-@media (max-width: 480px) {
-	body {
-		padding: 10px;
-	}
-	#terminal {
-		/* font-size: 12px; */
-		padding: 8px;
-	}
-	.prompt-line {
-		padding: 5px;
-	}
-	.cursor {
-		width: 8px;
-		height: 1.2em;
+	.repo-name,
+	.repo-description,
+	.repo-footer {
+		font-size: 13px;
 	}
 }
