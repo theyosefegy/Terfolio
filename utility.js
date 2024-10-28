@@ -2,7 +2,6 @@ import { myterminal } from "../script.js";
 import { typetext } from "../animation.js";
 
 import { Embed } from "../components/embed.js";
-import { GITHUB_TOKEN } from "./commands/env.js";
 
 export function displayErrorMessage(msg) {
 	const errorOutput = document.createElement("p");
@@ -26,20 +25,33 @@ export function displayOutputMessage(cmd, isPreloaded = false, animationDelay) {
 	myterminal.append(output); // Insert before the input line
 }
 
+const token = fetch("./config.json")
+	.then((response) => response.json())
+	.then((config) => config.GITHUB_TOKEN) // Extract GITHUB_TOKEN
+	.catch((error) => {
+		console.error("Error loading config:", error);
+		return null;
+	});
+	
 export async function returnJsonObject(url) {
 	try {
+		const authToken = await token; // Wait for the token to resolve
+		if (!authToken) throw new Error("Token not available");
+
 		const response = await fetch(url, {
 			method: "GET",
 			headers: {
-				Authorization: `token ${GITHUB_TOKEN}`,
+				Authorization: `token ${authToken}`,
 				Accept: "application/vnd.github.v3+json",
 			},
 		});
 		return await response.json();
-	} catch {
+	} catch (error) {
+		console.error("Error fetching JSON:", error);
+
 		const embedError = new Embed({
 			color: "red",
-			description: "Error: Something wrong occured.",
+			description: "Error: Something went wrong.",
 		});
 
 		embedError.renderIn(myterminal);
