@@ -4,6 +4,7 @@ import { aliasMethod } from "./alias.js";
 import { githubMethod } from "./github.js";
 import { projectsMethod } from "./projects.js";
 import { clearAliasesMethod } from "./clearaliases.js";
+import { whoismeMethod } from "./whoisme.js";
 
 // Commands Register
 export const commandMap = new Map();
@@ -14,7 +15,7 @@ export function registerCommand(name, description, method, aliases = []) {
 }
 
 registerCommand("help", "      Displays all available commands.", helpMethod);
-registerCommand("whoisme", "   Who is Yosef?", echoMethod);
+registerCommand("whoisme", "   Who is Yosef?", whoismeMethod);
 registerCommand("alias", "     Create a shortcut for a command.", aliasMethod);
 registerCommand("github", "    Shows my github page statistics.", githubMethod);
 

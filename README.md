@@ -14,6 +14,7 @@
 3. **Git & GitHub**
 
    - Uploaded and managed the project on GitHub with commit history documentation.
+   - Worked with different branches to avoid complexity.
    - Learned more about Git and Github
 
 4. **LocalStorage**
