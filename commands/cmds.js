@@ -17,6 +17,12 @@ export function registerCommand(name, description, method, aliases = []) {
 registerCommand("help", "      Displays all available commands.", helpMethod);
 registerCommand("whoisme", "   Who is Yosef?", whoismeMethod);
 registerCommand("alias", "     Create a shortcut for a command.", aliasMethod);
+
+registerCommand(
+	"unalias",
+	"   Removes either all commands or for a specific one.",
+	unaliasmethod
+);
 registerCommand("github", "    Shows my github page statistics.", githubMethod);
 
 registerCommand(
@@ -27,12 +33,8 @@ registerCommand(
 
 registerCommand("clear", "     Clear the terminal screen.", clearMethod);
 
-registerCommand(
-	"unalias",
-	"   Removes either all commands or for a specific one.",
-	unaliasmethod
-);
-
 registerCommand("banner", "    Displays the ascii banner", bannerMethod);
 registerCommand("echo", "      Print a message.", echoMethod);
 registerCommand("exit", "      Exits the terminal.", exitMethod);
+
+// MEEOOOW
