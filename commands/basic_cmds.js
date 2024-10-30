@@ -4,7 +4,7 @@ import { Command } from "./abstract.js";
 
 export class Clear extends Command {
 	constructor() {
-		super("clear", "  Clears the terminal history.");
+		super("clear", "  Clears the terminal screen.");
 	}
 
 	async execute(args) {
@@ -24,7 +24,7 @@ export class Exit extends Command {
 
 export class Echo extends Command {
 	constructor() {
-		super("echo", "   Prints text into the terminal.");
+		super("echo", "   Prints a message in the terminal.");
 	}
 
 	async execute(args) {

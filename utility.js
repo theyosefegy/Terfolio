@@ -36,7 +36,9 @@ export function handleCommand(commandString) {
 	const [command, ...args] = commandString.trim().split(" ");
 
 	// Check if the command exists in commandMap or if it's an alias
-	let commandHandler = commandMap.get(command) || findCommandByAlias(command);
+	let commandHandler =
+		commandMap.get(command.toLowerCase()) ||
+		findCommandByAlias(command.toLowerCase());
 
 	// Execute the command if found, otherwise show error message
 	if (commandHandler) {

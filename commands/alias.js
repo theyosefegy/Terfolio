@@ -4,7 +4,7 @@ import { displayErrorMessage, displayOutputMessage } from "../utility.js";
 
 export class Alias extends Command {
 	constructor() {
-		super("alias", "  Adds alias to a specific command.");
+		super("alias", "  Creates a shorcut for a command.");
 	}
 
 	async execute(args) {

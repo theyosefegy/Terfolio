@@ -3,7 +3,7 @@ import { Command, commandMap } from "./abstract.js"; // Correct import statement
 
 export class Help extends Command {
 	constructor() {
-		super("help", "   Displays a list of available commands");
+		super("help", "   Displays all available commands.");
 	}
 
 	// Implement the execute method
