@@ -2,6 +2,7 @@ import { updateTyper } from "./animation.js";
 import { commandMap } from "./commands/abstract.js";
 import { Alias } from "./commands/alias.js";
 import { Clear, Echo, Exit } from "./commands/basic_cmds.js";
+import { Github } from "./commands/github.js";
 import { Help } from "./commands/help.js";
 import { handleCommand } from "./utility.js";
 
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Commands Register
 new Help().register(commandMap);
+new Github().register(commandMap);
 new Clear().register(commandMap);
 new Alias().register(commandMap);
 new Echo().register(commandMap);
