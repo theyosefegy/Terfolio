@@ -3,7 +3,7 @@ import { Command, commandMap } from "./abstract.js";
 
 export class Unalias extends Command {
 	constructor() {
-		super("unalias", "Removes either all commands or for a specific one.");
+		super("unalias", "  Removes either all commands or for a specific one.");
 	}
 
 	async execute(args) {

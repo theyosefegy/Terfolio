@@ -3,7 +3,7 @@ import { Command } from "./abstract.js";
 
 export class Banner extends Command {
 	constructor() {
-		super("banner", "Displays the ASCII banner.");
+		super("banner", "   Displays the ASCII banner.");
 	}
 
 	async execute(args) {

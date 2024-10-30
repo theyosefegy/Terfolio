@@ -6,7 +6,7 @@ let login = "theyosefegy";
 
 export class Projects extends Command {
 	constructor() {
-		super("projects", "Shows all Yosef's projects on github.");
+		super("projects", " Shows all Yosef's projects on github.");
 	}
 
 	async execute(args) {

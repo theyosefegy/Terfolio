@@ -5,7 +5,7 @@ import { myterminal } from "../main.js";
 
 export class Github extends Command {
 	constructor() {
-		super("github", " Shows my github page on statistics.");
+		super("github", "   Shows my github page on statistics.");
 	}
 
 	async execute(args) {

@@ -3,7 +3,7 @@ import { Command } from "./abstract.js";
 
 export class WhoIsMe extends Command {
 	constructor() {
-		super("whoisme", "Who is Yosef?");
+		super("whoisme", "  Who is Yosef?");
 	}
 
 	async execute(args) {

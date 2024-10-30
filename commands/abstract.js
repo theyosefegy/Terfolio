@@ -9,6 +9,10 @@ export class Command {
 		this.aliases = [];
 	}
 
+	__repr__() {
+		return `<span class="command-help">${this.name}</span> ${this.description}`;
+	}
+
 	async execute(args) {
 		throw new Error("Method 'execute()' must be implemented.");
 	}

@@ -17,6 +17,8 @@ export const preloadedCMDS = document.getElementById("preloaded");
 export const texter = document.getElementById("texter");
 export const typer = document.getElementById("typer");
 
+let currentIndex = -1; // Initialize index for cycling through matches
+
 texter.addEventListener("input", () => {
 	typer.textContent = texter.value;
 	updateTyper(texter.value);
@@ -35,6 +37,28 @@ texter.addEventListener("keydown", (event) => {
 
 		texter.value = ""; // Clear the textarea
 		typer.textContent = ""; // Clear the visible command line
+		texter.focus(); // Keep focus on texter
+	}
+	if (event.key === "Tab") {
+		event.preventDefault(); // Prevent default Tab behavior
+
+		// Get the current input text
+		const inputText = texter.value; // Use value instead of textContent
+
+		// Find matching command keys
+		const matches = [];
+		for (let [key, _] of commandMap.entries()) {
+			if (key.startsWith(inputText)) {
+				matches.push(key);
+			}
+		}
+
+		// Cycle through matches
+		if (matches.length > 0) {
+			currentIndex = (currentIndex + 1) % matches.length; // Increment index
+			texter.value = matches[currentIndex]; // Set the value to the current match
+			typer.textContent = matches[currentIndex]; // Update the display in your typing area
+		}
 	}
 });
 
