@@ -1,0 +1,205 @@
+* {
+	box-sizing: border-box;
+}
+
+div.embed {
+	max-width: 700px;
+	padding: 5px 20px 5px 10px;
+	margin: 10px 0;
+	border-radius: 4px;
+	border-width: 0 0 0 10px;
+	font-family: "Courier New", Courier, monospace;
+	color: #fff;
+	background-color: #2a2523;
+	transition: 0.3s;
+	display: grid;
+	align-content: center;
+	grid-template-columns: 1fr 2fr;
+	gap: 10px; /* Add gap between grid items */
+}
+
+/* The title of the embed */
+div.embed .embedTitle {
+	grid-area: title;
+	text-transform: uppercase;
+	grid-row: 1;
+	grid-column: 1/3;
+	margin-bottom: 5px; /* Add some spacing below the title */
+}
+
+/* The image of the embed */
+div.embed .embedImage {
+	grid-area: image;
+	max-width: 200px;
+	grid-row: 2;
+	grid-column: 1;
+}
+
+/* The description of the embed */
+div.embed .embedDescription {
+	grid-area: description;
+	font-weight: 800;
+	width: auto; /* Make the description width adaptive */
+	padding: 2px;
+	color: #ddd6cf;
+	grid-row: 2;
+	grid-column: 2;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+/* The footer of the embed */
+div.embed .embedFooter {
+	grid-area: footer;
+	font-size: 12px;
+	margin-top: 10px;
+	text-transform: uppercase;
+	align-self: end;
+	grid-row: 4;
+	grid-column: 1;
+}
+
+/* The link of the embed */
+div.embed .embedLink {
+	grid-area: link;
+	color: inherit;
+	text-decoration: none;
+	font-weight: bold;
+	text-transform: uppercase;
+	justify-self: end;
+	align-self: end;
+	transition: 0.3s;
+	grid-row: 4;
+	grid-column: 2;
+}
+
+/* FIELDS */
+div.embed .fields {
+	display: grid;
+	gap: 20px;
+	grid-area: fields;
+	grid-template-columns: 1fr 1fr 1fr;
+	width: 100%;
+	grid-row: 3;
+	grid-column: 1/3;
+}
+
+.field {
+	padding: 5px;
+	border-radius: 4px;
+	transition: 0.3s;
+	width: 100%;
+}
+
+.field-title {
+	font-weight: bold;
+	color: #6d977e;
+	text-transform: uppercase;
+	width: fit-content;
+}
+
+.field-value {
+	margin-bottom: 10px;
+	font-weight: 300;
+	color: #ddd6cf;
+}
+
+.field:hover {
+	background-color: #584b3d87;
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+
+/* Tablet and small screens */
+@media (max-width: 768px) {
+	div.embed {
+		grid-template-columns: 1fr 1fr; /* Stack elements vertically */
+		grid-template-rows: repeat(6, min-content);
+		grid-template-areas:
+			"title title"
+			"image description"
+			"fields fields"
+			"footer footer"
+			"link link";
+		padding: 10px;
+	}
+
+	div.embed .embedTitle {
+		grid-area: title;
+		margin-bottom: 10px;
+	}
+
+	div.embed .embedImage {
+		grid-area: image;
+		margin: 0 auto 10px; /* Center the image and add space below */
+	}
+
+	div.embed .embedDescription {
+		grid-area: description;
+		margin-left: 0;
+		width: 400px; /* Make sure the description uses full width */
+		text-align: left; /* Align text to the left */
+	}
+
+	div.embed .embedFooter,
+	div.embed .embedLink {
+		text-align: center; /* Center footer and link */
+		justify-self: center;
+		margin-top: 10px;
+	}
+
+	div.embed .embedFooter {
+		grid-area: footer;
+	}
+	div.embed .embedLink {
+		grid-area: link;
+	}
+
+	div.embed .fields {
+		grid-area: fields;
+		grid-template-columns: 1fr 1fr; /* Adjust to two columns on small screens */
+		gap: 10px;
+	}
+}
+
+/* Mobile screens */
+@media (max-width: 580px) {
+	div.embed {
+		grid-template-columns: 1fr; /* Stack elements vertically */
+		grid-template-rows: repeat(6, min-content);
+		grid-template-areas:
+			"title"
+			"image"
+			"description"
+			"fields"
+			"footer"
+			"link";
+		padding: 10px;
+	}
+
+	div.embed .embedImage {
+		grid-area: image;
+	}
+
+	div.embed .embedDescription {
+		margin-left: 0;
+		width: 100%; /* Take full width */
+		padding: 0;
+		text-align: left;
+	}
+
+	div.embed .embedFooter,
+	div.embed .embedLink {
+		grid-column: 1;
+		grid-row: auto;
+		justify-self: start;
+		align-self: start;
+		text-align: left; /* Align to the left */
+		margin-top: 10px;
+	}
+
+	div.embed .fields {
+		grid-template-columns: 1fr; /* Single column for fields on mobile */
+		gap: 10px;
+	}
+}

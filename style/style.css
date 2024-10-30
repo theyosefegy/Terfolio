@@ -1,0 +1,255 @@
+:root {
+	--command: #8c6b59;
+	--preloded-text: #b89076;
+	--bg: #211d1b;
+	--err: #9c8394;
+	--cursor: #73abad;
+	--prompt: #519975;
+	--terminalFont: monospace;
+}
+
+::-webkit-scrollbar {
+	background-color: var(--bg);
+	width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--prompt);
+}
+
+::selection {
+	color: #211830;
+	background-color: #519975;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
+pre {
+	padding: 0;
+	margin: 0;
+	color: var(--prompt);
+}
+
+body {
+	color: var(--preloded-text);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	margin: 0px;
+	padding: 15px 20px;
+	background-color: var(--bg);
+	font-family: var(--terminalFont);
+	font-weight: 100;
+	font-size: 16px;
+	align-content: space-around;
+}
+
+/* TERMINAL */
+
+#terminal {
+	max-width: 1200px; /* Maximum width to ensure it doesn't get too wide on large screens */
+	width: 95%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	box-sizing: border-box; /* Includes padding and borders in the element's width and height */
+}
+
+#texter {
+	position: absolute;
+	left: -1000px;
+	opacity: 0;
+}
+
+/* User Input */
+
+.command {
+	display: flex;
+	color: var(--command);
+	cursor: text;
+	flex-wrap: wrap; /* Allow wrapping on smaller screens */
+	box-sizing: border-box;
+	width: 100%; /* Make sure it uses the full width */
+}
+
+.social-link {
+	color: var(--err);
+	text-decoration: none;
+}
+
+.social-link:hover {
+	background-color: #73abad;
+	color: black;
+}
+
+/* The command name inside the help menu */
+span.command-help {
+	color: var(--cursor);
+	text-transform: capitalize;
+	margin: 3px 10px;
+	text-shadow: 0 0 5px #73abad;
+}
+
+#typer {
+	display: inline-block;
+	white-space: pre; /* Preserves both spaces and line breaks */
+	color: #73abad;
+	margin-bottom: 30px;
+}
+
+.preloaded-msg {
+	color: var(--preloded-text);
+}
+
+#terminal p.preloaded-msg {
+	color: var(--prompt);
+}
+
+.command #typer::before,
+p.preloaded-msg::before {
+	content: "visitor@theyosefegy.com:~$ ";
+	color: var(--prompt);
+}
+
+p.error {
+	color: var(--err);
+}
+
+@keyframes blink {
+	50% {
+		opacity: 50%;
+	}
+}
+
+.suggestion {
+	display: inline-block;
+	color: #85c4c680;
+	white-space: pre-line; /* Preserves both spaces and line breaks */
+}
+
+/* Projects Command */
+.repo-container {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	margin: 0;
+	max-width: 50%;
+	padding: 10px 0;
+	background-color: #0f0d0b;
+	margin: 10px 0;
+}
+
+.repo-container i {
+	color: var(--prompt);
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.repo-name {
+	text-decoration: none;
+	margin: 0;
+	color: var(--command);
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.repo-name:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.repo-container::before,
+.repo-container::after {
+	position: absolute;
+	font-weight: 100;
+	font-size: 43px;
+	top: -0.22em;
+	color: var(--prompt);
+}
+
+.repo-container::before {
+	content: "[";
+	left: -0.18em;
+}
+.repo-container::after {
+	content: "]";
+	right: -0.2em;
+}
+
+.copyright {
+	color: rgb(180, 180, 129);
+}
+
+/* Cursor */
+
+.cursor {
+	display: inline-block;
+	background-color: var(--cursor);
+	font-size: 12px;
+	color: transparent;
+	position: relative;
+	opacity: 1;
+	top: -3px;
+	height: 1.5em;
+	width: 10px;
+	max-width: 10px;
+	transform: translateY(4px);
+	overflow: hidden;
+	text-indent: -5px;
+	animation: blink 1s infinite;
+}
+
+/* Responsive Media */
+@media (max-width: 1024px) {
+	.command,
+	#terminal {
+		font-size: 16px;
+		width: 100%;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+@media (max-width: 768px) {
+	.command,
+	#terminal {
+		font-size: 14px;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	.repo-name,
+	.repo-description,
+	.repo-footer {
+		font-size: 13px;
+	}
+}
+
+@media (max-width: 480px) {
+	.command,
+	#terminal {
+		font-size: 12px;
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+	.cursor {
+		width: 8px;
+		height: 1.2em;
+	}
+
+	.repo-name,
+	.repo-description,
+	.repo-footer {
+		font-size: 13px;
+	}
+}
