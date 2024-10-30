@@ -36,3 +36,5 @@ registerCommand(
 registerCommand("banner", "    Displays the ascii banner", bannerMethod);
 registerCommand("echo", "      Print a message.", echoMethod);
 registerCommand("exit", "      Exits the terminal.", exitMethod);
+
+// MOEW
