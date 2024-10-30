@@ -1,7 +1,9 @@
-import { myterminal } from "../script.js";
+import { myterminal } from "./main.js";
 import { typetext } from "../animation.js";
 
 import { Embed } from "../components/embed.js";
+import { findCommandByAlias } from "./commands/alias.js";
+import { commandMap } from "./commands/abstract.js";
 
 export function displayErrorMessage(msg) {
 	const errorOutput = document.createElement("p");
@@ -23,6 +25,33 @@ export function displayOutputMessage(cmd, isPreloaded = false, animationDelay) {
 	typer.textContent = "";
 
 	myterminal.append(output); // Insert before the input line
+}
+
+export function handleCommand(commandString) {
+	if (!commandString.trim()) return;
+
+	displayOutputMessage(commandString, true);
+
+	// Split commandString into command and args
+	const [command, ...args] = commandString.trim().split(" ");
+
+	// Check if the command exists in commandMap or if it's an alias
+	let commandHandler = commandMap.get(command) || findCommandByAlias(command);
+
+	// Execute the command if found, otherwise show error message
+	if (commandHandler) {
+		try {
+			commandHandler.execute(args);
+		} catch (error) {
+			console.error(
+				`An error occurred while executing the command "${command}": ${error.message}`
+			);
+		}
+	} else {
+		displayErrorMessage(
+			`The command "${command}" is not recognized. Type "help" for a list of available commands.`
+		);
+	}
 }
 
 const token = fetch("./config.json")

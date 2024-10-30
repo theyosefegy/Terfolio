@@ -1,5 +1,5 @@
-import { commandMap } from "./commands/cmds.js";
-import { myterminal, texter, typer } from "./script.js";
+import { commandMap } from "./commands/abstract.js";
+import { myterminal, typer } from "./main.js";
 
 export function typetext(text, element, delay = 15) {
 	if (!text) return;
@@ -47,7 +47,6 @@ export async function loopLines(lines, delay) {
 export function updateTyper(command) {
 	const suggestions = [];
 
-	// Check if your input is what a command in the hashmap
 	commandMap.forEach((key, _) => {
 		if (key.name.startsWith(command.toLowerCase())) suggestions.push(key.name);
 	});
