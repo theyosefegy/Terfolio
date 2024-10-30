@@ -9,8 +9,6 @@ export class Command {
 		this.aliases = [];
 	}
 
-	
-
 	async execute(args) {
 		throw new Error("Method 'execute()' must be implemented.");
 	}
